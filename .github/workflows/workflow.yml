@@ -3,9 +3,6 @@ name: Upload to S3 Action pipeline
 on:
   push:
 
-permissions:
-  contents: write
-
 jobs:
   generate-version:
     name: Generate Version
@@ -31,5 +28,7 @@ jobs:
           github.ref == 'refs/heads/develop' ||
           github.ref == 'refs/heads/next' ||
           github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         shell: bash
         run: bash ./scripts/generate-version.sh ${{ steps.branch-name.outputs.current_branch }}
