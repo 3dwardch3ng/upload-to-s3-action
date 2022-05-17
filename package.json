@@ -1,0 +1,107 @@
+{
+  "name": "upload-to-s3-action",
+  "description": "Upload files to S3",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3dwardCh3nG/upload-to-s3-action.git"
+  },
+  "bugs": {
+    "url": "https://github.com/3dwardCh3nG/upload-to-s3-action/issues"
+  },
+  "homepage": "https://github.com/3dwardCh3nG/upload-to-s3-action#readme",
+  "author": "Edward Cheng <edward@cheng.sydney>",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build index.js -o dist -m"
+  },
+  "dependencies": {
+    "@actions/core": "^1.8.2",
+    "aws-sdk": "^2.24.1",
+    "klaw-sync": "^6.0.0",
+    "mime-types": "^2.1.35"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.3",
+    "prettier": "^2.6.2",
+    "conventional-changelog-eslint": "^3.0.9",
+    "semantic-release": "^19.0.2"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "release": {
+    "branches": [
+      "main",
+      {
+        "name": "develop",
+        "prerelease": true
+      },
+      {
+        "name": "next",
+        "prerelease": true
+      }
+    ],
+    "tagFormat": "v${version}",
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "eslint",
+          "releaseRules": [
+            {
+              "tag": "Breaking",
+              "release": "major"
+            },
+            {
+              "tag": "Fix",
+              "release": "patch"
+            },
+            {
+              "tag": "Update",
+              "release": "minor"
+            },
+            {
+              "tag": "New",
+              "release": "minor"
+            },
+            {
+              "tag": "Docs",
+              "release": "patch"
+            },
+            {
+              "tag": "Build",
+              "release": "patch"
+            },
+            {
+              "tag": "Upgrade",
+              "release": "minor"
+            },
+            {
+              "tag": "Chore",
+              "release": "minor"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "assets": "dist/*.tgz",
+          "successComment": false,
+          "failComment": false,
+          "failTitle": false,
+          "labels": false
+        }
+      ]
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+name: Upload S3
+description: 'Upload directory to S3'
+author: 'Edward Cheng'
+branding:
+  icon: 'upload_cloud'
+  color: 'white'
+inputs:
+  aws_access_key_id:
+    description: ''
+    required: false
+  aws_secret_access_key:
+    description: ''
+    required: false
+  aws_bucket_name:
+    description: 'aws bucket name'
+    required: true
+  source:
+    required: true
+    description: 'directory to upload'
+  destination:
+    required: false
+    default: /
+    description: 'destination directory for upload'
+  object_acl:
+    description: 'Canned ACL to apply to the object.'
+    default: 'private'
+    required: false
+  cache_control_max_age:
+    description: 'The Cache-Control max-age for the uploaded file.'
+    default: '-1'
+    required: false
+  included_files:
+    description: 'List of files to include in the upload. If not specified, all files will be uploaded. (Comma separated)'
+    required: false
+  exclued_files:
+    description: 'List of files to exclude from upload (Comma separated)'
+    required: false
+outputs:
+  object_key:
+    description: 'object key'
+  object_locations:
+    description: 'object locations'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
