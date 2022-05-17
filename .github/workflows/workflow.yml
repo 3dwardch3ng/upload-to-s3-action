@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  generate-version:
+  pipeline:
     name: Generate Version
     runs-on: ubuntu-latest
     steps:
