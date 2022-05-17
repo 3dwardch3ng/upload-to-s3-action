@@ -3,6 +3,9 @@ name: Upload to S3 Action pipeline
 on:
   push:
 
+permissions:
+  contents: write
+
 jobs:
   generate-version:
     name: Generate Version
