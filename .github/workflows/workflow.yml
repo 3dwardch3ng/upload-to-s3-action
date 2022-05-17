@@ -1,0 +1,32 @@
+name: Upload to S3 Action pipeline
+
+on:
+  push:
+
+jobs:
+  generate-version:
+    name: Generate Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v5
+      - name: checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Yarn Install
+        if: |
+          github.ref == 'refs/heads/develop' ||
+          github.ref == 'refs/heads/next' ||
+          github.ref == 'refs/heads/main'
+        run: |
+          yarn install
+      - name: Generate App Version
+        if: |
+          github.ref == 'refs/heads/develop' ||
+          github.ref == 'refs/heads/next' ||
+          github.ref == 'refs/heads/main'
+        shell: bash
+        run: bash ./scripts/generate-version.sh ${{ steps.branch-name.outputs.current_branch }}
