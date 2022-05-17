@@ -23,7 +23,7 @@ jobs:
           github.ref == 'refs/heads/main'
         run: |
           yarn install
-      - name: Generate App Version
+      - name: Generate Version
         if: |
           github.ref == 'refs/heads/develop' ||
           github.ref == 'refs/heads/next' ||
