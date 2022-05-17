@@ -3,7 +3,6 @@
   "description": "Upload files to S3",
   "version": "0.0.0",
   "license": "MIT",
-  "repository": "https://github.com/3dwardCh3nG/upload-to-s3-action.git",
   "bugs": {
     "url": "https://github.com/3dwardCh3nG/upload-to-s3-action/issues"
   },
