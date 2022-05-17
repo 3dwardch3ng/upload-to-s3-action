@@ -32,7 +32,7 @@ inputs:
   included_files:
     description: 'List of files to include in the upload. If not specified, all files will be uploaded. (Comma separated)'
     required: false
-  exclued_files:
+  excluded_files:
     description: 'List of files to exclude from upload (Comma separated)'
     required: false
 outputs:
