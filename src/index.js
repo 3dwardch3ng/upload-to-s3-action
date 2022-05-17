@@ -46,7 +46,11 @@ if (!acceptedObjectAcls.includes(OBJECT_ACL)) {
   OBJ_ACL = 'private';
 }
 
-let s3Options = {apiVersion: '2006-03-01'};
+let s3Options = {
+  apiVersion: '2006-03-01',
+  accessKeyId: null,
+  secretAccessKey: null
+};
 if (AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY) {
   s3Options['accessKeyId'] = AWS_ACCESS_KEY_ID;
   s3Options['secretAccessKey'] = AWS_SECRET_ACCESS_KEY;
