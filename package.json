@@ -1,7 +1,7 @@
 {
   "name": "@3dwardCh3nG/upload-to-s3-action",
   "description": "Upload files to S3",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/3dwardCh3nG/upload-to-s3-action/issues"
@@ -20,84 +20,9 @@
   },
   "devDependencies": {
     "@zeit/ncc": "^0.22.3",
-    "prettier": "^2.6.2",
-    "conventional-changelog-eslint": "3.0.9",
-    "semantic-release": "18.0.1"
+    "prettier": "^2.6.2"
   },
   "prettier": {
     "singleQuote": true
-  },
-  "release": {
-    "branches": [
-      "main",
-      {
-        "name": "develop",
-        "prerelease": true
-      },
-      {
-        "name": "next",
-        "prerelease": true
-      }
-    ],
-    "tagFormat": "v${version}",
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "eslint",
-          "releaseRules": [
-            {
-              "tag": "Breaking",
-              "release": "major"
-            },
-            {
-              "tag": "Fix",
-              "release": "patch"
-            },
-            {
-              "tag": "Update",
-              "release": "minor"
-            },
-            {
-              "tag": "New",
-              "release": "minor"
-            },
-            {
-              "tag": "Docs",
-              "release": "patch"
-            },
-            {
-              "tag": "Build",
-              "release": "patch"
-            },
-            {
-              "tag": "Upgrade",
-              "release": "minor"
-            },
-            {
-              "tag": "Chore",
-              "release": "minor"
-            }
-          ]
-        }
-      ],
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/npm",
-        {
-          "npmPublish": false
-        }
-      ],
-      [
-        "@semantic-release/github",
-        {
-          "assets": "dist/*.tgz",
-          "successComment": false,
-          "failComment": false,
-          "failTitle": false,
-          "labels": false
-        }
-      ]
-    ]
   }
 }
