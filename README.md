@@ -32,18 +32,21 @@ jobs:
 ## Action inputs
 Please follow below to see all the inputs for the action.
 
-| name                               | description                                                                                                          | Default Value                                                                      |
-|------------------------------------|----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| `aws_access_key_id`                | (Optional) AWS Access Key ID                                                                                         | When empty, it will use value AWS_ACCESS_KEY_ID from the environment variable.     |
-| `aws_secret_access_key`            | (Optional) AWS Secret Access Key                                                                                     | When empty, it will use value AWS_SECRET_ACCESS_KEY from the environment variable. |
-| `aws_bucket_name`                  | AWS Bucket Name                                                                                                      |                                                                                    |
-| `source`                           | Source directory to upload                                                                                           |                                                                                    |
-| `destination`                      | (Optional) Destination directory in the bucket                                                                       | / - the root of the bucket                                                         |
-| `object_acl`                       | (Optional) Object ACL for the uploaded files                                                                          | private                                                                            |
-| `cache_control_max_age`            | (Optional) The Cache-Control max-age for the uploaded file.                                                           |                                                                                    |
-| `included_files`                    | (Optional) List of files to include in the upload. If not specified, all files will be uploaded. (Comma separated)      |                                                                                    |
-| `excluded_files`                    | (Optional) List of files to exclude from upload (Comma separated)                                                     |                                                                                    |
-| `delete_destination_before_upload` | (Optional) Delete all files in destination directory before upload                                                    | false                                                                              |
+| name                               | description                                                                                                          | Default Value                                                                                                       |
+|------------------------------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| `aws_access_key_id`                | (Optional) AWS Access Key ID                                                                                         | When empty, it will use value AWS_ACCESS_KEY_ID from the environment variable.                                      |
+| `aws_secret_access_key`            | (Optional) AWS Secret Access Key                                                                                     | When empty, it will use value AWS_SECRET_ACCESS_KEY from the environment variable.                                  |
+| `aws_bucket_name`                  | AWS Bucket Name                                                                                                      |                                                                                                                     |
+| `source`                           | Source directory to upload                                                                                           |                                                                                                                     |
+| `destination`                      | (Optional) Destination directory in the bucket                                                                       | / - the root of the bucket                                                                                          |
+| `object_acl`                       | (Optional) Object ACL for the uploaded files                                                                          | private                                                                                                             |
+| `cache_control_max_age`            | (Optional) The Cache-Control max-age for the uploaded file.                                                           |                                                                                                                     |
+| `included_files`                    | (Optional) List of files to include in the upload. If not specified, all files will be uploaded. (Comma separated)      | Note: if you set both `included_files` and `excluded_files` values, only `included_files` value will be respected.     |
+| `excluded_files`                    | (Optional) List of files to exclude from upload (Comma separated)                                                     |                                                                                                                     |
+| `delete_destination_before_upload` | (Optional) Delete all files in destination directory before upload                                                    | false                                                                                                               |
+
+## Logs and Outputs
+In order to enable to debug logs, you need to enable to Step Debug Logs by setting the secret `ACTIONS_STEP_DEBUG` to `true`. (see: [Step Debug Logs](https://github.com/actions/toolkit/blob/master/docs/action-debugging.md#step-debug-logs))
 
 ## License
 
