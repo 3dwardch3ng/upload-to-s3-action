@@ -32,6 +32,9 @@ const OBJECT_ACL = core.getInput('object_acl', {
 const OBJECT_CACHE_CONTROL_MAX_AGE = core.getInput('cache_control_max_age', {
   required: false
 });
+const DELETE_DESTINATION_BEFORE_UPLOAD = core.getInput('delete_destination_before_upload', {
+  required: false
+});
 
 const acceptedObjectAcls = [
   'private', 'public-read', 'public-read-write', 'authenticated-read',
@@ -79,7 +82,35 @@ function upload(params) {
   });
 }
 
-function run() {
+async function emptyS3Directory(bucket, dir) {
+  const listParams = {
+    Bucket: bucket,
+    Prefix: dir
+  };
+
+  const listedObjects = await s3.listObjectsV2(listParams).promise();
+
+  if (listedObjects.Contents.length === 0) return;
+
+  const deleteParams = {
+    Bucket: bucket,
+    Delete: { Objects: [] }
+  };
+
+  listedObjects.Contents.forEach(({ Key }) => {
+    deleteParams.Delete.Objects.push({ Key });
+  });
+
+  await s3.deleteObjects(deleteParams).promise();
+
+  if (listedObjects.IsTruncated) await emptyS3Directory(bucket, dir);
+}
+
+async function run() {
+  if (DELETE_DESTINATION_BEFORE_UPLOAD === 'true') {
+    await emptyS3Directory(BUCKET, DESTINATION);
+  }
+
   let uploadParams = {
     Bucket: BUCKET,
     ACL: OBJ_ACL,
