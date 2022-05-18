@@ -39,10 +39,6 @@ const OBJECT_CACHE_CONTROL_MAX_AGE = core.getInput('cache_control_max_age', {
   required: false
 });
 
-if (AWS_ACCESS_KEY_ID !== '' && AWS_SECRET_ACCESS_KEY !== '' && AWS_ASSUME_ROLE_ARN !== '') {
-  throw new Error('You need to either pass in AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY or AWS_ASSUME_ROLE_ARN');
-}
-
 const acceptedObjectAcls = [
   'private', 'public-read', 'public-read-write', 'authenticated-read',
   'bucket-owner-read', 'bucket-owner-full-control', 'log-delivery-write'
