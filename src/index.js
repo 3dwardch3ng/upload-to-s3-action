@@ -32,9 +32,6 @@ const EXCLUDED_OBJECT_TO_UPLOAD = core.getInput('exclude_files', {
 const OBJECT_ACL = core.getInput('object_acl', {
   required: false
 });
-const OBJECT_EXPIRE = core.getInput('expire', {
-  required: false
-});
 const OBJECT_CACHE_CONTROL_MAX_AGE = core.getInput('cache_control_max_age', {
   required: false
 });
@@ -49,11 +46,7 @@ if (!acceptedObjectAcls.includes(OBJECT_ACL)) {
   OBJ_ACL = 'private';
 }
 
-core.info('AWS_ACCESS_KEY_ID: ' + AWS_ACCESS_KEY_ID);
-core.info('AWS_SECRET_ACCESS_KEY: ' + AWS_SECRET_ACCESS_KEY);
-core.info('AWS_ASSUME_ROLE_ARN: ' + AWS_ASSUME_ROLE_ARN);
-
-let s3Options = {apiVersion: '2006-03-01'};
+let s3Options = {};
 if (AWS_ACCESS_KEY_ID !== '' && AWS_SECRET_ACCESS_KEY !== '') {
   core.info('Using AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY');
   s3Options['accessKeyId'] = AWS_ACCESS_KEY_ID;
@@ -61,7 +54,6 @@ if (AWS_ACCESS_KEY_ID !== '' && AWS_SECRET_ACCESS_KEY !== '') {
 } else if (AWS_ASSUME_ROLE_ARN !== '') {
   core.info('Using AWS_ASSUME_ROLE_ARN');
   let stsOptions = {
-    apiVersion: '2011-06-15',
     RoleArn: AWS_ASSUME_ROLE_ARN,
     RoleSessionName: 'actions-s3-upload-session'
   };
@@ -76,7 +68,6 @@ if (AWS_ACCESS_KEY_ID !== '' && AWS_SECRET_ACCESS_KEY !== '') {
     }
   });
 } else {
-  core.info('Using AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY or AWS_ASSUME_ROLE_ARN error!');
   throw new Error('You need to either pass in both AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY or AWS_ASSUME_ROLE_ARN');
 }
 
@@ -111,11 +102,6 @@ function upload(params) {
 }
 
 function run() {
-  const expire = parseInt(OBJECT_EXPIRE);
-  if (!expire || expire < 0 || 604800 < expire) {
-    throw new Error('"expire" input should be a number between 0 and 604800.');
-  }
-
   let uploadParams = {
     Bucket: BUCKET,
     ACL: OBJ_ACL,
