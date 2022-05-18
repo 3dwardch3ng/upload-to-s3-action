@@ -50,4 +50,4 @@ In order to enable to debug logs, you need to enable to Step Debug Logs by setti
 
 ## License
 
-[MIT](LICENSE)
+The scripts and documentation in this project are released under the [MIT License](LICENSE)
