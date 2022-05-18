@@ -6,13 +6,13 @@ const klawSync = require('klaw-sync');
 const { lookup } = require('mime-types');
 
 const AWS_ACCESS_KEY_ID = core.getInput('aws_access_key_id', {
-  required: true
+  required: false
 });
 const AWS_SECRET_ACCESS_KEY = core.getInput('aws_secret_access_key', {
-  required: true
+  required: false
 });
 const AWS_ASSUME_ROLE_ARN = core.getInput('aws_assume_role_arn', {
-  required: true
+  required: false
 });
 const BUCKET = core.getInput('aws_bucket_name', {
   required: true
