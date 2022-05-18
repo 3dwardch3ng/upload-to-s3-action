@@ -109,7 +109,7 @@ function run() {
 
 run()
   .then(locations => {
-    core.info(`Uploaded Objects - ${locations}`);
+    core.info(`Upload competed.`);
     core.setOutput('uploaded_objects', locations);
   })
   .catch(err => {
