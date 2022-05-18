@@ -48,11 +48,9 @@ if (!acceptedObjectAcls.includes(OBJECT_ACL)) {
 
 let s3Options = {};
 if (AWS_ACCESS_KEY_ID !== '' && AWS_SECRET_ACCESS_KEY !== '') {
-  core.info('Using AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY');
   s3Options['accessKeyId'] = AWS_ACCESS_KEY_ID;
   s3Options['secretAccessKey'] = AWS_SECRET_ACCESS_KEY;
 } else if (AWS_ASSUME_ROLE_ARN !== '') {
-  core.info('Using AWS_ASSUME_ROLE_ARN');
   let stsOptions = {
     RoleArn: AWS_ASSUME_ROLE_ARN,
     RoleSessionName: 'actions-s3-upload-session'
