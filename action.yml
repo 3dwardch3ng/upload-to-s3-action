@@ -35,6 +35,10 @@ inputs:
   excluded_files:
     description: 'List of files to exclude from upload (Comma separated)'
     required: false
+  delete_destination_before_upload:
+    description: 'Delete all files in destination directory before upload'
+    required: false
+    default: 'false'
 outputs:
   object_key:
     description: 'object key'
