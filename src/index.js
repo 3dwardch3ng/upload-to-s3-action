@@ -72,6 +72,7 @@ if (AWS_ACCESS_KEY_ID !== '' && AWS_SECRET_ACCESS_KEY !== '') {
     }
   });
 } else {
+  core.info('Using AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY or AWS_ASSUME_ROLE_ARN error!');
   throw new Error('You need to either pass in both AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY or AWS_ASSUME_ROLE_ARN');
 }
 
