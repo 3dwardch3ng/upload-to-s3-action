@@ -98,6 +98,7 @@ async function emptyS3Directory(bucket, dir) {
   };
 
   listedObjects.Contents.forEach(({ Key }) => {
+    core.info(`Deleting: ${Key}`);
     deleteParams.Delete.Objects.push({ Key });
   });
 
