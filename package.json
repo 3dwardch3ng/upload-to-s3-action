@@ -76,7 +76,7 @@
             },
             {
               "tag": "Chore",
-              "release": "minor"
+              "release": "patch"
             }
           ]
         }
