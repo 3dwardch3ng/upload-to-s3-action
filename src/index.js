@@ -20,10 +20,10 @@ const SOURCE = core.getInput('source', {
 const DESTINATION = core.getInput('destination', {
   required: false
 });
-const INCLUDED_OBJECT_TO_UPLOAD = core.getInput('included_files', {
+const INCLUDED_OBJECTS_TO_UPLOAD = core.getInput('included_files', {
   required: false
 });
-const EXCLUDED_OBJECT_TO_UPLOAD = core.getInput('exclude_files', {
+const EXCLUDED_OBJECTS_TO_UPLOAD = core.getInput('exclude_files', {
   required: false
 });
 const OBJECT_ACL = core.getInput('object_acl', {
@@ -58,17 +58,17 @@ if (INPUT_AWS_ACCESS_KEY_ID !== '' && INPUT_AWS_SECRET_ACCESS_KEY !== '') {
 const s3 = new aws.S3(s3Options);
 
 let klawSyncOptions = { nodir: true };
-if (EXCLUDED_OBJECT_TO_UPLOAD) {
-  core.debug('Excluding files: ' + EXCLUDED_OBJECT_TO_UPLOAD);
-  const excludedObjects = EXCLUDED_OBJECT_TO_UPLOAD.split(',');
+if (EXCLUDED_OBJECTS_TO_UPLOAD) {
+  core.debug('Excluding files: ' + EXCLUDED_OBJECTS_TO_UPLOAD);
+  const excludedObjects = EXCLUDED_OBJECTS_TO_UPLOAD.split(',');
   klawSyncOptions['filter'] = item => {
     const basename = path.basename(item.path);
     return !excludedObjects.includes(basename);
   };
 }
-if (INCLUDED_OBJECT_TO_UPLOAD) {
-  core.debug('Including files: ' + INCLUDED_OBJECT_TO_UPLOAD);
-  const includedObjects = INCLUDED_OBJECT_TO_UPLOAD.split(',');
+if (INCLUDED_OBJECTS_TO_UPLOAD) {
+  core.debug('Including files: ' + INCLUDED_OBJECTS_TO_UPLOAD);
+  const includedObjects = INCLUDED_OBJECTS_TO_UPLOAD.split(',');
   klawSyncOptions['filter'] = item => {
     const basename = path.basename(item.path);
     return includedObjects.includes(basename);
