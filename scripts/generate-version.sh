@@ -5,9 +5,6 @@ BRANCH_NAME=$1
 
 set -e
 
-mkdir ~/.ssh/
-echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-
 echo "Running semantic versioning"
 if ! npx semantic-release --debug; then
   exit 1;
