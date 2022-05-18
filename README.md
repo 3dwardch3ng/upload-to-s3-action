@@ -43,3 +43,7 @@ Please follow below to see all the inputs for the action.
 | `cache_control_max_age` | (Optional) The Cache-Control max-age for the uploaded file.                                                           |                                                                                    |
 | `included_files`         | (Optional) List of files to include in the upload. If not specified, all files will be uploaded. (Comma separated)      |                                                                                    |
 | `excluded_files`         | (Optional) List of files to exclude from upload (Comma separated)                                                     |                                                                                    |
+
+## License
+
+[MIT](LICENSE)
