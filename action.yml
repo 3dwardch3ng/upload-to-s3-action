@@ -1,8 +1,8 @@
-name: Upload S3
+name: Upload to S3 Action
 description: 'Upload directory to S3'
 author: 'Edward Cheng'
 branding:
-  icon: 'upload_cloud'
+  icon: 'upload-cloud'
   color: 'white'
 inputs:
   aws_access_key_id:
