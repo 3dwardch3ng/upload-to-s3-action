@@ -94,8 +94,8 @@ function upload(params) {
   return new Promise(resolve => {
     s3.upload(params, (err, data) => {
       if (err) core.error(err);
-      core.info(`uploaded - ${data.Key}`);
-      core.info(`located - ${data.Location}`);
+      core.info(`Uploaded: ${data.Key}`);
+      core.info(`Path: ${data.Location}`);
       resolve(data.Location);
     });
   });
@@ -131,10 +131,8 @@ function run() {
 
 run()
   .then(locations => {
-    core.info(`object key - ${destinationDir}`);
-    core.info(`object locations - ${locations}`);
-    core.setOutput('object_key', destinationDir);
-    core.setOutput('object_locations', locations);
+    core.info(`Uploaded Objects - ${locations}`);
+    core.setOutput('uploaded_objects', locations);
   })
   .catch(err => {
     core.error(err);
