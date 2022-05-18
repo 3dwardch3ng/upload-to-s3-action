@@ -27,6 +27,6 @@ jobs:
           github.ref == 'refs/heads/develop' ||
           github.ref == 'refs/heads/main'
         env:
-          GH_TOKEN: ${{secrets.PIPELINE_GITHUB_TOKEN}}
+          GH_TOKEN: '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'
         shell: bash
         run: bash ./scripts/generate-version.sh ${{ steps.branch-name.outputs.current_branch }}
