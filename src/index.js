@@ -49,6 +49,10 @@ if (!acceptedObjectAcls.includes(OBJECT_ACL)) {
   OBJ_ACL = 'private';
 }
 
+core.info('AWS_ACCESS_KEY_ID: ' + AWS_ACCESS_KEY_ID);
+core.info('AWS_SECRET_ACCESS_KEY: ' + AWS_SECRET_ACCESS_KEY);
+core.info('AWS_ASSUME_ROLE_ARN: ' + AWS_ASSUME_ROLE_ARN);
+
 let s3Options = {apiVersion: '2006-03-01'};
 if (AWS_ACCESS_KEY_ID !== '' && AWS_SECRET_ACCESS_KEY !== '') {
   core.info('Using AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY');
