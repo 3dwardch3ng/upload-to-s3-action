@@ -48,14 +48,18 @@ if (!acceptedObjectAcls.includes(OBJECT_ACL)) {
 
 let s3Options = {};
 if (INPUT_AWS_ACCESS_KEY_ID !== '' && INPUT_AWS_SECRET_ACCESS_KEY !== '') {
+  core.debug('Using AWS credentials from input');
   s3Options['accessKeyId'] = INPUT_AWS_ACCESS_KEY_ID;
   s3Options['secretAccessKey'] = INPUT_AWS_SECRET_ACCESS_KEY;
+} else {
+  core.debug('Using AWS credentials from environment');
 }
 
 const s3 = new aws.S3(s3Options);
 
 let klawSyncOptions = { nodir: true };
 if (EXCLUDED_OBJECT_TO_UPLOAD) {
+  core.debug('Excluding files: ' + EXCLUDED_OBJECT_TO_UPLOAD);
   const excludedObjects = EXCLUDED_OBJECT_TO_UPLOAD.split(',');
   klawSyncOptions['filter'] = item => {
     const basename = path.basename(item.path);
@@ -63,6 +67,7 @@ if (EXCLUDED_OBJECT_TO_UPLOAD) {
   };
 }
 if (INCLUDED_OBJECT_TO_UPLOAD) {
+  core.debug('Including files: ' + INCLUDED_OBJECT_TO_UPLOAD);
   const includedObjects = INCLUDED_OBJECT_TO_UPLOAD.split(',');
   klawSyncOptions['filter'] = item => {
     const basename = path.basename(item.path);
@@ -73,10 +78,11 @@ const files = klawSync(SOURCE, klawSyncOptions);
 
 function upload(params) {
   return new Promise(resolve => {
+    core.debug(`Uploading ${params.Key}`);
     s3.upload(params, (err, data) => {
       if (err) core.error(err);
-      core.info(`Uploaded: ${data.Key}`);
-      core.info(`Path: ${data.Location}`);
+      core.debug(`Uploaded: ${data.Key}`);
+      core.debug(`Uploaded Path: ${data.Location}`);
       resolve(data.Location);
     });
   });
@@ -98,7 +104,7 @@ async function emptyS3Directory(bucket, dir) {
   };
 
   listedObjects.Contents.forEach(({ Key }) => {
-    core.info(`Deleting: ${Key}`);
+    core.debug(`Deleting: ${Key}`);
     deleteParams.Delete.Objects.push({ Key });
   });
 
@@ -109,7 +115,9 @@ async function emptyS3Directory(bucket, dir) {
 
 async function run() {
   if (DELETE_DESTINATION_BEFORE_UPLOAD === 'true') {
+    core.info(`Emptying S3 directory: ${DESTINATION}`);
     await emptyS3Directory(BUCKET, DESTINATION);
+    core.info(`Emptied S3 directory: ${DESTINATION}`);
   }
 
   let uploadParams = {
@@ -118,6 +126,7 @@ async function run() {
   };
 
   if (OBJECT_CACHE_CONTROL_MAX_AGE !== '-1') {
+    core.debug('Setting cache control max age to: ' + OBJECT_CACHE_CONTROL_MAX_AGE);
     const expire = parseInt(OBJECT_CACHE_CONTROL_MAX_AGE);
     if (expire < 0 || 604800 < expire) {
       throw new Error('"expire" input should be a number between 0 and 604800.');
@@ -125,10 +134,11 @@ async function run() {
     uploadParams['CacheControl'] = `max-age=${expire}`;
   }
 
-
+  core.info(`Number of files to upload: ${files.length}`);
   const sourceDir = path.join(process.cwd(), SOURCE);
   return Promise.all(
     files.map(p => {
+      core.debug(`Uploading: ${p.path}`);
       const fileStream = fs.createReadStream(p.path);
       const bucketPath = path.join(DESTINATION, path.relative(sourceDir, p.path));
       uploadParams['Body'] = fileStream;

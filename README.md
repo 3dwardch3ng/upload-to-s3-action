@@ -45,6 +45,9 @@ Please follow below to see all the inputs for the action.
 | `excluded_files`                    | (Optional) List of files to exclude from upload (Comma separated)                                                     |                                                                                    |
 | `delete_destination_before_upload` | (Optional) Delete all files in destination directory before upload                                                    | false                                                                              |
 
+## Logs and Outputs
+In order to enable to debug logs, you need to enable to Step Debug Logs by setting the secret `ACTIONS_STEP_DEBUG` to `true`. (see: [Step Debug Logs](https://github.com/actions/toolkit/blob/master/docs/action-debugging.md#step-debug-logs))
+
 ## License
 
 [MIT](LICENSE)
