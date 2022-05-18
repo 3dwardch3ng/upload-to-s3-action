@@ -1,7 +1,7 @@
 const core = require("@actions/core");
 try {
   // eslint-disable-next-line node/global-require
-  require("./src/index")();
+  require("./dist/index")();
 } catch (error) {
   core.setFailed(`Action failed with error ${error}`);
 }
