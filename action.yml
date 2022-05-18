@@ -11,9 +11,6 @@ inputs:
   aws_secret_access_key:
     description: ''
     required: false
-  aws_assume_role_arn:
-    description: ''
-    required: false
   aws_bucket_name:
     description: 'aws bucket name'
     required: true

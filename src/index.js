@@ -5,13 +5,10 @@ const path = require('path');
 const klawSync = require('klaw-sync');
 const { lookup } = require('mime-types');
 
-const AWS_ACCESS_KEY_ID = core.getInput('aws_access_key_id', {
+const INPUT_AWS_ACCESS_KEY_ID = core.getInput('aws_access_key_id', {
   required: false
 });
-const AWS_SECRET_ACCESS_KEY = core.getInput('aws_secret_access_key', {
-  required: false
-});
-const AWS_ASSUME_ROLE_ARN = core.getInput('aws_assume_role_arn', {
+const INPUT_AWS_SECRET_ACCESS_KEY = core.getInput('aws_secret_access_key', {
   required: false
 });
 const BUCKET = core.getInput('aws_bucket_name', {
@@ -47,26 +44,12 @@ if (!acceptedObjectAcls.includes(OBJECT_ACL)) {
 }
 
 let s3Options = {};
-if (AWS_ACCESS_KEY_ID !== '' && AWS_SECRET_ACCESS_KEY !== '') {
+if (INPUT_AWS_ACCESS_KEY_ID !== '' && INPUT_AWS_SECRET_ACCESS_KEY !== '') {
+  s3Options['accessKeyId'] = INPUT_AWS_ACCESS_KEY_ID;
+  s3Options['secretAccessKey'] = INPUT_AWS_SECRET_ACCESS_KEY;
+} else {
   s3Options['accessKeyId'] = AWS_ACCESS_KEY_ID;
   s3Options['secretAccessKey'] = AWS_SECRET_ACCESS_KEY;
-} else if (AWS_ASSUME_ROLE_ARN !== '') {
-  let stsOptions = {
-    RoleArn: AWS_ASSUME_ROLE_ARN,
-    RoleSessionName: 'actions-s3-upload-session'
-  };
-  const sts = new aws.STS();
-  sts.assumeRole(stsOptions, function (err, data) {
-    if (err) {
-      throw new Error(err.message);
-    }
-    else {
-      s3Options['accessKeyId'] = data.Credentials.AccessKeyId;
-      s3Options['secretAccessKey'] = data.Credentials.SecretAccessKey;
-    }
-  });
-} else {
-  throw new Error('You need to either pass in both AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY or AWS_ASSUME_ROLE_ARN');
 }
 
 const s3 = new aws.S3(s3Options);
