@@ -28,9 +28,6 @@ jobs:
         env:
           GH_TOKEN: ${{secrets.PIPELINE_GITHUB_TOKEN}}
         run: |
-          npm config set always-auth true
-          npm config set //npm.pkg.github.com/:_authToken $GH_TOKEN
-          npm config set @3dwardCh3nG:registry https://npm.pkg.github.com
           yarn install
       - name: Generate App Version
         if: |
