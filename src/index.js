@@ -44,6 +44,8 @@ if (!acceptedObjectAcls.includes(OBJECT_ACL)) {
 }
 
 let s3Options = {};
+core.info(`Using AWS access key id: ${INPUT_AWS_ACCESS_KEY_ID}`);
+core.info(`Using AWS secret access key: ${INPUT_AWS_SECRET_ACCESS_KEY}`);
 if (INPUT_AWS_ACCESS_KEY_ID !== '' && INPUT_AWS_SECRET_ACCESS_KEY !== '') {
   s3Options['accessKeyId'] = INPUT_AWS_ACCESS_KEY_ID;
   s3Options['secretAccessKey'] = INPUT_AWS_SECRET_ACCESS_KEY;
