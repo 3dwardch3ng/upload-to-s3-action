@@ -20,11 +20,11 @@ jobs:
   runs-on: ubuntu-latest
   steps:
     - uses: actions/checkout@master
-    - uses: 3dwardCh3nG/s3-to-upload-action@v1.1.2
+    - uses: 3dwardCh3nG/s3-to-upload-action@v1.2.1
       with:
         aws_access_key_id: ${{ secrets.AWS_KEY_ID }}
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-        aws_bucket: ${{ secrets.AWS_BUCKET }}
+        aws_bucket_name: ${{ secrets.AWS_BUCKET }}
         source: 'src_dir'
         destination: 'dest_dir'
 ```
