@@ -38,12 +38,14 @@ const DELETE_DESTINATION_BEFORE_UPLOAD = core.getInput('delete_destination_befor
 
 const acceptedObjectAcls = [
   'private', 'public-read', 'public-read-write', 'authenticated-read',
-  'bucket-owner-read', 'bucket-owner-full-control', 'log-delivery-write'
+  'aws-exec-read', 'bucket-owner-read', 'bucket-owner-full-control'
 ];
 
 let OBJ_ACL;
 if (!acceptedObjectAcls.includes(OBJECT_ACL)) {
   OBJ_ACL = 'private';
+} else {
+  OBJ_ACL = OBJECT_ACL;
 }
 
 let s3Options = {};
