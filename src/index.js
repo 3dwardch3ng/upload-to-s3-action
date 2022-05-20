@@ -60,7 +60,7 @@ if (INPUT_AWS_ACCESS_KEY_ID !== '' && INPUT_AWS_SECRET_ACCESS_KEY !== '') {
 const s3 = new aws.S3(s3Options);
 
 let klawSyncOptions = { nodir: true };
-if (EXCLUDED_OBJECTS_TO_UPLOAD) {
+if (EXCLUDED_OBJECTS_TO_UPLOAD !== '') {
   core.debug('Excluding files: ' + EXCLUDED_OBJECTS_TO_UPLOAD);
   const excludedObjects = EXCLUDED_OBJECTS_TO_UPLOAD.split(',');
   klawSyncOptions['filter'] = item => {
@@ -68,7 +68,7 @@ if (EXCLUDED_OBJECTS_TO_UPLOAD) {
     return !excludedObjects.includes(basename);
   };
 }
-if (INCLUDED_OBJECTS_TO_UPLOAD) {
+if (INCLUDED_OBJECTS_TO_UPLOAD !== '') {
   core.debug('Including files: ' + INCLUDED_OBJECTS_TO_UPLOAD);
   const includedObjects = INCLUDED_OBJECTS_TO_UPLOAD.split(',');
   klawSyncOptions['filter'] = item => {
