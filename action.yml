@@ -19,7 +19,7 @@ inputs:
     description: 'directory to upload'
   destination:
     required: false
-    default: /
+    default: ''
     description: 'destination directory for upload'
   object_acl:
     description: 'Canned ACL to apply to the object.'
