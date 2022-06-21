@@ -2,7 +2,8 @@ name: Upload to S3 Action pipeline
 
 on:
   push:
-
+  pull_request:
+    types: [ opened, synchronize, reopened ]
 permissions:
   id-token: write
   contents: write
@@ -20,6 +21,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: .
       - name: Set up environment
         if: |
           github.ref == 'refs/heads/develop' ||
