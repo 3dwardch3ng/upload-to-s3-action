@@ -2,15 +2,35 @@ name: Upload to S3 Action pipeline
 
 on:
   push:
-
+  pull_request:
+    types: [ opened, synchronize, reopened ]
 permissions:
   id-token: write
   contents: write
 
 jobs:
+  code-analysis:
+    name: SonarCloud Code Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - uses: actions/checkout@v2
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@v1.6
+        with:
+          projectBaseDir: .
+        env:
+          GITHUB_TOKEN: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   release:
     name: generate-version
     runs-on: ubuntu-latest
+    needs: code-analysis
     steps:
       - name: Get branch name
         id: branch-name
