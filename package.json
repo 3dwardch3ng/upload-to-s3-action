@@ -18,7 +18,7 @@
     "klaw-sync": "^6.0.0",
     "mime-types": "^2.1.35",
     "conventional-changelog-eslint": "3.0.9",
-    "semantic-release": "18.0.0"
+    "semantic-release": "19.0.3"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.22.3",
