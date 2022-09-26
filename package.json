@@ -13,7 +13,7 @@
     "build": "ncc build index.js -o dist -m"
   },
   "dependencies": {
-    "@actions/core": "^1.8.2",
+    "@actions/core": "^1.9.1",
     "aws-sdk": "^2.1189.0",
     "klaw-sync": "^6.0.0",
     "mime-types": "^2.1.35",
@@ -81,17 +81,32 @@
           ]
         }
       ],
-      ["@semantic-release/release-notes-generator", {
-        "preset": "eslint",
-        "parserOpts": {
-          "noteKeywords": ["Breaking", "Fix", "Update", "New", "Docs", "Build", "Upgrade", "Chore"]
-        },
-        "writerOpts": {
-          "commitsSort": ["subject", "scope"]
-        },
-        "commit": "commits",
-        "issue": "issues"
-      }],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "eslint",
+          "parserOpts": {
+            "noteKeywords": [
+              "Breaking",
+              "Fix",
+              "Update",
+              "New",
+              "Docs",
+              "Build",
+              "Upgrade",
+              "Chore"
+            ]
+          },
+          "writerOpts": {
+            "commitsSort": [
+              "subject",
+              "scope"
+            ]
+          },
+          "commit": "commits",
+          "issue": "issues"
+        }
+      ],
       [
         "@semantic-release/npm",
         {
