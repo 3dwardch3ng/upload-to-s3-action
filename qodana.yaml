@@ -3,15 +3,12 @@
 #             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
 #-------------------------------------------------------------------------------#
 version: "1.0"
-
 #Specify inspection profile for code analysis
 profile:
   name: qodana.recommended
-
 #Enable inspections
 #include:
 #  - name: <SomeEnabledInspectionId>
-
 #Disable inspections
 exclude:
   - name: Auto_Generated_Files
@@ -27,16 +24,14 @@ exclude:
       - README.md
       - sonar-project.properties
       - yarn.lock
-
 #The following options are only applied in CI/CD environment
 #These options are ignored during local run
-
 #Execute shell command before Qodana execution
 #bootstrap: sh ./prepare-qodana.sh
-
 #Install IDE plugins before Qodana execution
 #plugins:
 #  - id: <plugin.id> #(plugin id can be found at https://plugins.jetbrains.com)
-
 #Specify Qodana linter for analysis
 linter: jetbrains/qodana-js:latest
+include:
+  - name: CheckDependencyLicenses
